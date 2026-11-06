@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Trang dành cho bố mẹ · Minh &amp; Thuỷ</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f8f6ec;
+  --ink: #302d24;
+  --olive: #505a38;
+  --olive-dark: #414b2b;
+  --olive-light: #eeefdf;
+  --muted: #6e705d;
+  --line: #d4ccb3;
+  --field: #fffdf4;
+  --error: #9a312c;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'DejaVu Sans Mono', Consolas, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--ink);
+  font: 1rem/1.55 var(--sans);
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.shell { width: min(100%, 529px); margin: 0 auto; padding: 16px 12px 40px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.eyebrow { margin: 0; color: var(--muted); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; }
+.top-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px 14px; }
+.top a { color: var(--olive); font-size: .78rem; font-weight: 600; text-underline-offset: .22em; }
+
+label { display: block; margin-bottom: 7px; font-size: .78rem; font-weight: 600; }
+.field {
+  display: block;
+  width: 100%;
+  padding: .72rem .85rem;
+  border: 1px solid #7d8a5c;
+  border-radius: 6px;
+  background: var(--field);
+  color: var(--ink);
+  font-size: 1rem;
+}
+.field::placeholder { color: #8c8a7a; }
+textarea.field { min-height: 132px; padding: .8rem .9rem; border: 2px solid var(--olive); background: #fff; resize: vertical; font: .86rem/1.65 var(--mono); overflow-wrap: anywhere; }
+.helper { margin: 5px 0 0; color: var(--muted); font-size: .68rem; line-height: 1.5; }
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: .55rem;
+  min-height: 44px;
+  padding: .65rem 1rem;
+  border: 1px solid var(--olive);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--olive);
+  font: 600 .9rem/1.3 var(--sans);
+  text-align: center;
+  text-decoration: none;
+}
+.button:hover:not(:disabled) { background: var(--olive-light); }
+.button.primary { background: var(--olive); border-color: var(--olive); color: #fffdf2; }
+.button.primary:hover:not(:disabled) { background: var(--olive-dark); }
+.button:disabled { opacity: .45; cursor: default; }
+.button.full { width: 100%; margin-top: 14px; }
+.link-button { border: 0; background: none; padding: .45rem .3rem; color: var(--olive); font-size: .85rem; text-decoration: underline; text-underline-offset: .22em; }
+
+.notice { min-height: 1.3em; margin: 8px 0 0; color: var(--olive); font-size: .8rem; }
+.notice:empty { display: none; }
+.notice.error { color: var(--error); }
+
+.result { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+.actions { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
+#invite-copy { min-height: 58px; font-size: 1.05rem; font-weight: 700; }
+#invite-preview { justify-self: start; min-height: 34px; padding: .3rem .85rem; font-size: .76rem; }
+
+.guests { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+.guests h2 { margin: 0 0 4px; font-size: 1.02rem; }
+.guest-count { margin: 0 0 10px; color: var(--muted); font-size: .76rem; }
+.guest-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.guest-list li { padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; background: #fffdf1; }
+.guest-list strong { display: block; font-size: .92rem; overflow-wrap: anywhere; }
+.guest-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.guest-actions .button { min-height: 36px; padding: .3rem .7rem; font-size: .76rem; }
+.guest-actions .danger { border-color: #c9b4ad; color: var(--error); }
+
+.settings { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line); }
+.settings summary { cursor: pointer; font-size: .85rem; font-weight: 600; padding: .35rem 0; }
+.settings form { margin-top: 10px; display: grid; gap: 14px; }
+.settings .helper { overflow-wrap: anywhere; }
+.sheet-test { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--line); }
+.warn { margin: 0 0 18px; padding: 9px 11px; border: 1px solid #d9c27a; border-radius: 5px; background: #fbf3d6; color: #5a4a14; font-size: .74rem; line-height: 1.5; }
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="top">
+    <p class="eyebrow">Trang dành cho bố mẹ</p>
+    <nav class="top-links" aria-label="Liên kết nhanh">
+      <a id="card-link" href="#" target="_blank" rel="noopener noreferrer">Xem thử thiệp ↗</a>
+      <a id="sheet-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Xem phản hồi ↗</a>
+    </nav>
+  </header>
+
+  <h1 class="sr-only">Tạo link thiệp cưới riêng cho từng khách</h1>
+
+  <p class="warn" id="web-warning" hidden>Đang mở file trên máy nên link tạo ra chỉ dùng thử được tại đây. Sau khi đưa thiệp lên web, link gửi khách sẽ chạy bình thường (xem mục Cài đặt ở cuối trang).</p>
+
+  <form id="guest-form" novalidate>
+    <label for="guest-input">Tên khách trên thiệp</label>
+    <input class="field" id="guest-input" type="text" maxlength="120" placeholder="Ví dụ: Cô Lan và chú Hùng" autocomplete="off" aria-describedby="guest-hint">
+    <p class="helper" id="guest-hint">Có thể dùng “Anh Nam”, “Cô Lan” hoặc “Gia đình anh chị…”.</p>
+    <button class="button primary full" type="submit" id="create-invite">Tạo link mời <span aria-hidden="true">→</span></button>
+    <p class="notice" id="guest-notice" role="status"></p>
+  </form>
+
+  <section class="result" aria-label="Link vừa tạo">
+    <label for="invite-url">Link thiệp dành cho khách</label>
+    <textarea class="field" id="invite-url" rows="4" placeholder="Link sẽ hiện sau khi bấm Tạo link mời" readonly></textarea>
+    <div class="actions">
+      <button class="button primary" type="button" id="invite-copy" disabled>Sao chép link</button>
+      <button class="button" type="button" id="invite-preview" disabled>Mở thử thiệp <span aria-hidden="true">→</span></button>
+    </div>
+    <button class="link-button" type="button" id="next-guest" hidden>Tạo cho khách tiếp theo</button>
+    <p class="notice" id="invite-notice" role="status"></p>
+  </section>
+
+  <section class="guests" aria-labelledby="guests-title">
+    <h2 id="guests-title">Khách đã tạo link</h2>
+    <p class="guest-count" id="guest-count"></p>
+    <ul class="guest-list" id="guest-list"></ul>
+    <p class="notice" id="list-notice" role="status"></p>
+  </section>
+
+  <details class="settings" id="settings">
+    <summary>Cài đặt</summary>
+    <form id="settings-form" novalidate>
+      <div>
+        <label for="card-url">Địa chỉ web của thiệp</label>
+        <input class="field" id="card-url" type="url" inputmode="url" placeholder="https://…/Minh-va-Thuy-thiep-cuoi.html" autocomplete="off">
+        <p class="helper" id="card-help"></p>
+      </div>
+      <div>
+        <label for="sheet-url">Link Google Sheet phản hồi (không bắt buộc)</label>
+        <input class="field" id="sheet-url" type="url" inputmode="url" placeholder="https://docs.google.com/spreadsheets/d/…" autocomplete="off">
+        <p class="helper">Dán link Sheet vào đây để có nút “Xem phản hồi” ở đầu trang.</p>
+      </div>
+      <button class="button primary" type="submit">Lưu cài đặt</button>
+      <p class="notice" id="settings-notice" role="status"></p>
+    </form>
+    <div class="sheet-test" id="sheet-test-box">
+      <label>Kiểm tra kết nối Google Sheet</label>
+      <p class="helper">Bấm để thử ghi 1 dòng “KIỂM TRA KẾT NỐI” vào Sheet. Nếu dòng đó hiện ra thì phản hồi của khách cũng sẽ được ghi. Bạn xóa dòng thử đi là được.</p>
+      <button class="button" type="button" id="sheet-test">Kiểm tra Google Sheet</button>
+      <p class="notice" id="sheet-test-notice" role="status"></p>
+    </div>
+  </details>
+</main>
+
+<script>
+'use strict';
+
+// Tên file thiệp. Nếu hai file nằm cùng một thư mục trên web, trang tự tìm thấy thiệp.
+const CARD_FILE = 'Minh-va-Thuy-thiep-cuoi.html';
+// Nếu thiệp nằm ở địa chỉ khác (hoặc bạn đổi tên file), điền địa chỉ đầy đủ vào đây,
+// hoặc nhập trong mục Cài đặt ở cuối trang. Để trống = tự tìm.
+const CARD_URL = 'https://thuynguyen7595.github.io/wedding-invitation/';
+
+// Địa chỉ Google Script (giống địa chỉ trong thiệp). Dùng cho nút "Kiểm tra Google Sheet".
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyVWCwIERQSzBVlYW3ttJ37ERDax-jwse5CXKgDKxc_UqxKXdkvBp8Vrr0m1o_406ivcw/exec';
+
+const STORE = 'minh-thuy-2026-bome:';
+const memory = {};
+let storageOk = true;
+
+const $ = id => document.getElementById(id);
+
+function read(key, fallback) {
+  try {
+    const raw = localStorage.getItem(STORE + key);
+    return raw === null ? (key in memory ? memory[key] : fallback) : JSON.parse(raw);
+  } catch {
+    storageOk = false;
+    return key in memory ? memory[key] : fallback;
+  }
+}
+function write(key, value) {
+  memory[key] = value;
+  try { localStorage.setItem(STORE + key, JSON.stringify(value)); } catch { storageOk = false; }
+}
+
+function validWebUrl(value) {
+  try {
+    const url = new URL(String(value).trim());
+    if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) return null;
+    url.hash = '';
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+// Trả về null khi chưa biết thiệp nằm ở đâu (ví dụ trang đang mở trong khung xem trước, không có địa chỉ thật).
+function cardBase() {
+  const known = validWebUrl(read('card-url', '')) || validWebUrl(CARD_URL);
+  try {
+    const base = new URL(known || new URL(CARD_FILE, location.href).href);
+    base.hash = '';
+    return base;
+  } catch {
+    return null;
+  }
+}
+
+// Phải giống hệt cách thiệp mã hóa tên khách để link mở đúng.
+function randomHex() {
+  const bytes = new Uint8Array(16);
+  if (globalThis.crypto && crypto.getRandomValues) crypto.getRandomValues(bytes);
+  else for (let i = 0; i < bytes.length; i++) bytes[i] = Math.floor(Math.random() * 256);
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+}
+// Mỗi khách một mã riêng 128 bit. Vòng lặp bảo đảm không bao giờ trùng với mã đã tạo trước đó.
+function newId() {
+  const used = new Set(guests().map(item => item.id));
+  let id;
+  do { id = randomHex(); } while (used.has(id));
+  return id;
+}
+function encodeGuest({ id, name }) {
+  const bytes = new TextEncoder().encode(JSON.stringify([id, name]));
+  return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function guestLink(guest) {
+  const url = cardBase();
+  if (!url) return '';
+  url.hash = 'bia?khach=' + encodeGuest(guest);
+  return url.href;
+}
+function previewLink(guest) {
+  const url = cardBase();
+  if (!url) return '';
+  url.hash = 'loi-moi?khach=' + encodeGuest(guest) + '&xem-thu=1';
+  return url.href;
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const active = document.activeElement;
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.append(field);
+    field.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    field.remove();
+    if (active instanceof HTMLElement) active.focus({ preventScroll: true });
+    return ok;
+  }
+}
+
+function say(id, message, error = false) {
+  const box = $(id);
+  box.textContent = message;
+  box.classList.toggle('error', error);
+}
+
+let current = null;
+
+function guests() {
+  const data = read('guests', []);
+  return Array.isArray(data) ? data : [];
+}
+
+function showCurrent() {
+  const has = Boolean(current);
+  $('invite-url').value = has ? guestLink(current) : '';
+  $('invite-copy').disabled = !has;
+  $('invite-preview').disabled = !has;
+  $('next-guest').hidden = !has;
+}
+
+function renderList() {
+  const list = guests();
+  $('guest-count').textContent = list.length
+    ? list.length + ' khách đã có link' + (storageOk ? '. Danh sách lưu trên trình duyệt này.' : '. Trình duyệt đang chặn lưu nên danh sách chỉ giữ khi trang còn mở.')
+    : 'Chưa có khách nào. Link sẽ hiện ở đây sau khi bạn tạo.';
+  const rows = list.map(guest => {
+    const li = document.createElement('li');
+    const name = document.createElement('strong');
+    name.textContent = guest.name;
+    const actions = document.createElement('div');
+    actions.className = 'guest-actions';
+    const copy = Object.assign(document.createElement('button'), { type: 'button', className: 'button', textContent: 'Sao chép link' });
+    copy.addEventListener('click', async () => {
+      const link = guestLink(guest);
+      if (!link) { say('list-notice', 'Chưa biết địa chỉ thiệp. Hãy dán địa chỉ thiệp vào mục Cài đặt bên dưới.', true); return; }
+      say('list-notice', (await copyText(link)) ? 'Đã sao chép link cho ' + guest.name + '.' : 'Chưa sao chép được. Hãy bấm giữ vào ô link ở trên để chép.', false);
+    });
+    const open = Object.assign(document.createElement('button'), { type: 'button', className: 'button', textContent: 'Xem thử' });
+    open.addEventListener('click', () => { const link = previewLink(guest); if (link) window.open(link, '_blank', 'noopener'); else say('list-notice', 'Chưa biết địa chỉ thiệp. Hãy dán địa chỉ thiệp vào mục Cài đặt bên dưới.', true); });
+    const del = Object.assign(document.createElement('button'), { type: 'button', className: 'button danger', textContent: 'Xóa' });
+    del.addEventListener('click', () => {
+      if (!confirm('Xóa ' + guest.name + ' khỏi danh sách? Link đã gửi cho khách vẫn mở được.')) return;
+      write('guests', guests().filter(item => item.id !== guest.id));
+      if (current?.id === guest.id) { current = null; showCurrent(); }
+      say('list-notice', '');
+      renderList();
+    });
+    actions.append(copy, open, del);
+    li.append(name, actions);
+    return li;
+  });
+  $('guest-list').replaceChildren(...rows);
+}
+
+function renderSettings() {
+  const base = cardBase();
+  const isWeb = Boolean(base) && ['http:', 'https:'].includes(base.protocol) && location.protocol !== 'file:';
+  $('web-warning').hidden = isWeb;
+  $('web-warning').textContent = base
+    ? 'Đang mở file trên máy nên link tạo ra chỉ dùng thử được tại đây. Sau khi đưa thiệp lên web, link gửi khách sẽ chạy bình thường (xem mục Cài đặt ở cuối trang).'
+    : 'Trang đang mở theo cách không có địa chỉ riêng (ví dụ trong khung xem trước hoặc ứng dụng chat), nên chưa biết thiệp nằm ở đâu. Hãy dán địa chỉ web của thiệp vào mục Cài đặt ở cuối trang, hoặc mở file này bằng trình duyệt.';
+  $('card-url').value = validWebUrl(read('card-url', '')) || '';
+  $('card-help').textContent = base
+    ? 'Link tạo cho khách đang trỏ tới: ' + base.href + (isWeb ? '' : ' (chỉ dùng thử trên máy này)')
+    : 'Chưa xác định được địa chỉ thiệp. Hãy dán địa chỉ web của thiệp vào ô trên rồi bấm Lưu cài đặt.';
+  const cardLink = $('card-link');
+  cardLink.hidden = !base;
+  if (base) cardLink.href = previewLink({ id: '0123456789abcdef0123456789abcdef', name: 'Quý khách' });
+  const sheet = validWebUrl(read('sheet-url', ''));
+  $('sheet-url').value = sheet || '';
+  const sheetLink = $('sheet-link');
+  sheetLink.hidden = !sheet;
+  if (sheet) sheetLink.href = sheet;
+}
+
+function createInvite() {
+  const name = $('guest-input').value.replace(/\s+/g, ' ').trim();
+  if (!name) {
+    say('guest-notice', 'Vui lòng nhập tên khách trên thiệp.', true);
+    $('guest-input').focus();
+    return;
+  }
+  if (name.length > 120) {
+    say('guest-notice', 'Tên hơi dài, vui lòng rút gọn dưới 120 ký tự.', true);
+    return;
+  }
+  if (!cardBase()) {
+    say('guest-notice', 'Chưa biết địa chỉ thiệp nên chưa tạo được link. Hãy dán địa chỉ web của thiệp vào mục Cài đặt bên dưới, bấm Lưu cài đặt rồi tạo lại.', true);
+    $('settings').open = true;
+    $('card-url').focus();
+    return;
+  }
+  const sameName = guests().some(item => item.name.toLowerCase() === name.toLowerCase());
+  current = { id: newId(), name, at: Date.now() };
+  write('guests', [current, ...guests()]);
+  $('guest-input').value = '';
+  say('guest-notice', sameName
+    ? 'Đã tạo link MỚI cho ' + name + '. Lưu ý: trước đó đã có link cho tên này. Hai link khác nhau và được ghi riêng trong Google Sheet.'
+    : 'Đã tạo link cho ' + name + '.');
+  say('invite-notice', '');
+  showCurrent();
+  renderList();
+  $('invite-url').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+$('guest-form').addEventListener('submit', event => {
+  event.preventDefault();
+  try { createInvite(); } catch (error) { say('guest-notice', 'Chưa tạo được link: ' + (error && error.message ? error.message : 'lỗi không rõ') + '. Hãy thử mở trang bằng trình duyệt (Chrome hoặc Safari).', true); }
+});
+$('invite-copy').addEventListener('click', async () => {
+  if (!current) return;
+  say('invite-notice', (await copyText(guestLink(current)))
+    ? 'Đã sao chép link cho ' + current.name + '. Hãy dán vào tin nhắn gửi khách.'
+    : 'Chưa sao chép được. Hãy bấm giữ vào ô link phía trên để chép.', false);
+});
+$('invite-preview').addEventListener('click', () => { if (current) window.open(previewLink(current), '_blank', 'noopener'); });
+$('invite-url').addEventListener('focus', event => event.target.select());
+$('next-guest').addEventListener('click', () => {
+  current = null;
+  showCurrent();
+  say('guest-notice', '');
+  say('invite-notice', '');
+  $('guest-input').focus();
+});
+
+$('settings-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const cardRaw = $('card-url').value.trim();
+  const sheetRaw = $('sheet-url').value.trim();
+  const card = cardRaw ? validWebUrl(cardRaw) : '';
+  const sheet = sheetRaw ? validWebUrl(sheetRaw) : '';
+  if (cardRaw && !card) { say('settings-notice', 'Địa chỉ thiệp chưa đúng. Hãy dán cả đường dẫn, bắt đầu bằng https://', true); return; }
+  if (sheetRaw && !sheet) { say('settings-notice', 'Link Google Sheet chưa đúng. Hãy dán cả đường dẫn, bắt đầu bằng https://', true); return; }
+  write('card-url', card || '');
+  write('sheet-url', sheet || '');
+  say('settings-notice', 'Đã lưu cài đặt.');
+  renderSettings();
+  showCurrent();
+});
+
+async function testSheet() {
+  const button = $('sheet-test');
+  button.disabled = true;
+  say('sheet-test-notice', 'Đang kiểm tra…');
+  try {
+    let ping;
+    try {
+      const res = await fetch(RSVP_ENDPOINT + '?action=ping', { cache: 'no-store' });
+      ping = await res.json();
+    } catch {
+      say('sheet-test-notice', 'Chưa kết nối được tới Google Script. Hãy mở địa chỉ Script trong cửa sổ ẩn danh: nếu thấy trang đăng nhập Google thì mục “Ai có quyền truy cập” chưa chọn “Bất kỳ ai” (Anyone). Nếu mở ra {"ok":true} thì thử lại, hoặc kiểm tra mạng.', true);
+      return;
+    }
+    if (!ping.ok) {
+      say('sheet-test-notice', 'Google Script báo lỗi: ' + ping.error, true);
+      return;
+    }
+    const id = 'kiemtra' + randomHex().slice(0, 16);
+    await fetch(RSVP_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ id, name: 'KIỂM TRA KẾT NỐI – có thể xóa dòng này', choice: 'Thử kết nối', at: Date.now() })
+    });
+    for (let i = 0; i < 4; i++) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const res = await fetch(RSVP_ENDPOINT + '?action=find&id=' + id, { cache: 'no-store' });
+      const found = await res.json();
+      if (found.ok && found.found) {
+        say('sheet-test-notice', 'Kết nối tốt. Đã ghi thử 1 dòng “KIỂM TRA KẾT NỐI” vào Sheet. Bạn mở Sheet kiểm tra rồi xóa dòng đó.');
+        return;
+      }
+    }
+    say('sheet-test-notice', 'Script trả lời nhưng chưa thấy dòng thử trong Sheet. Hãy mở tab “Nhật ký lỗi” trong Sheet (nếu có) hoặc mục Executions trong Apps Script để xem lỗi.', true);
+  } catch (error) {
+    say('sheet-test-notice', 'Kiểm tra bị gián đoạn: ' + (error && error.message ? error.message : 'lỗi không rõ'), true);
+  } finally {
+    button.disabled = false;
+  }
+}
+$('sheet-test').addEventListener('click', testSheet);
+
+renderSettings();
+showCurrent();
+renderList();
+</script>
+</body>
+</html>
